@@ -397,11 +397,3 @@ test('Search-022 - Search by Category and Manufacturer without a keyword', async
     await expect(page.locator(".warning")).toHaveText('Search term minimum length is 3 characters');
     await page.waitForTimeout(2000);
 });
-
-test('Search-023 - Search in Product Descriptions', async ({ page }) => {
- 
-});
-
-test('Search-024 - Search in Product tags', async ({ page }) => {
-    
-});
