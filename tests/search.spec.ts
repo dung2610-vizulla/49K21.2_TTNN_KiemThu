@@ -232,14 +232,6 @@ test('Search-016 - Search by Category with a valid keyword including Automatical
 
     await page.locator("button[class='button-1 search-button']").click();
     //except
-    // await expect(page.locator("label[for='advs']")).toBeChecked();
-    // await page.waitForTimeout(1000);
-
-    // await expect(page.locator("#advanced-search-block")).toBeVisible();
-    // await page.waitForTimeout(1000);
-
-    // (pending) await expect(page.locator("#cid")).toHaveValue("Apparel");
-
     const products = page.locator('.product-item');
     expect(await products.count()).toBeGreaterThan(0);
 

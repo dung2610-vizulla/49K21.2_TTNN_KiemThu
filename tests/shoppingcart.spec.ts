@@ -16,8 +16,7 @@ test.beforeEach(async ({ page }) => {
     await loginBeforeCart(page);
 });
 
-//QUANTITY
-test('AddProduct-001 - Add product to cart with quantity = 1', async ({ page }) => {
+async function asusLaptop_5(page: Page) {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator(".menu__link[href='/computers']").click();
@@ -28,16 +27,29 @@ test('AddProduct-001 - Add product to cart with quantity = 1', async ({ page }) 
     await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
     await page.waitForTimeout(1000);
 
+}
+
+async function womenTShirt_30(page:Page){
+    await page.goto('https://demo.nopcommerce.com/');
+
+    await page.locator(".menu__link[href='/apparel']").click();
+    await page.waitForTimeout(1000);
+
+    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
+    await page.waitForTimeout(1000);
+    
+    // Open product detail
+    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
+    await page.waitForTimeout(1000);
+}
+//QUANTITY
+test('AddProduct-001 - Add product to cart with quantity = 1', async ({ page }) => {
+    await asusLaptop_5(page);
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("1");
     await page.locator(" #add-to-cart-button-5").click();
-
     // Expected result
-    await expect(
-        page.locator(".bar-notification.success")
-    ).toContainText(
-        "The product has been added to your shopping cart"
-    );
+    await expect(page.locator(".bar-notification.success")).toContainText("The product has been added to your shopping cart");
     await page.waitForTimeout(2000);
 });
 
@@ -58,26 +70,13 @@ test('AddProduct-002 - Add product to cart with quantity = 10000', async ({ page
     await page.locator("#add-to-cart-button-8").click();
 
     // Expected result
-    await expect(
-        page.locator(".bar-notification.success")
-    ).toContainText(
-        "The product has been added to your shopping cart"
-    );
+    await expect(page.locator(".bar-notification.success")).toContainText("The product has been added to your shopping cart");
     await page.waitForTimeout(2000);
 });
 
 
 test('AddProduct-003 - Add product to cart with  quantity is empty', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // ]Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
-
+    await asusLaptop_5(page);
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("");
     await page.locator(" #add-to-cart-button-5").click();
@@ -88,15 +87,7 @@ test('AddProduct-003 - Add product to cart with  quantity is empty', async ({ pa
 });
 
 test('AddProduct-004 - Add product to cart with quantity less than 1', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // ]Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("-1");
@@ -108,15 +99,7 @@ test('AddProduct-004 - Add product to cart with quantity less than 1', async ({ 
 });
 
 test('AddProduct-005 - Add product to cart with quantity of 0', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // ]Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("0");
@@ -128,15 +111,7 @@ test('AddProduct-005 - Add product to cart with quantity of 0', async ({ page })
 });
 
 test('AddProduct-006 - Add product to cart with quantity is decimal numbers', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // ]Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("9.5");
@@ -148,15 +123,7 @@ test('AddProduct-006 - Add product to cart with quantity is decimal numbers', as
 });
 
 test('AddProduct-007 - Add product to cart with quantity greater than 10000', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // ]Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("10001");
@@ -168,16 +135,7 @@ test('AddProduct-007 - Add product to cart with quantity greater than 10000', as
 });
 
 test('AddProduct-008 - Add product to cart with quantity is not number', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // ]Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
-
+    await asusLaptop_5(page);
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("abc");
     await page.locator(" #add-to-cart-button-5").click();
@@ -817,17 +775,7 @@ test('AddProduct-025 - Rental product added to cart with end date is earlier tha
 
 // APPLY PRICE BASED ON QUANTITY (CLOTHING)
 test('AddProduct-026 - Verify that apply the correct price based on quantity of 1', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("1");
@@ -841,17 +789,7 @@ test('AddProduct-026 - Verify that apply the correct price based on quantity of 
 });
 
 test('AddProduct-027 - Verify that apply the correct price based on quantity of 2', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("2");
@@ -865,17 +803,7 @@ test('AddProduct-027 - Verify that apply the correct price based on quantity of 
 });
 
 test('AddProduct-028 - Verify that apply the correct price based on quantity of 3', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("3");
@@ -889,17 +817,7 @@ test('AddProduct-028 - Verify that apply the correct price based on quantity of 
 });
 
 test('AddProduct-029 - Verify that apply the correct price based on quantity of 6', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("6");
@@ -913,17 +831,7 @@ test('AddProduct-029 - Verify that apply the correct price based on quantity of 
 });
 
 test('AddProduct-030 - Verify that apply the correct price based on quantity of 7', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("7");
@@ -937,17 +845,7 @@ test('AddProduct-030 - Verify that apply the correct price based on quantity of 
 });
 
 test('AddProduct-031 - Verify that apply the correct price based on quantity of 9', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("9");
@@ -961,17 +859,7 @@ test('AddProduct-031 - Verify that apply the correct price based on quantity of 
 });
 
 test('AddProduct-032 - Verify that apply the correct price based on quantity of 10', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("10");
@@ -985,17 +873,7 @@ test('AddProduct-032 - Verify that apply the correct price based on quantity of 
 });
 
 test('AddProduct-033 - Verify that apply the correct price based on quantity of 15', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
-
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
-    
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
+    await womenTShirt_30(page);
 
     // Enter quantity = 1
     await page.locator(" #product_enteredQuantity_30").fill("15");
@@ -1494,15 +1372,7 @@ test('AddProduct-052 - Add wishlist items to the cart unsuccessfully', async ({ 
 
 //UPDATE QUANTITY
 test('UpdateProduct-053 - Quantity product updated successfully', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("1");
@@ -1527,15 +1397,7 @@ test('UpdateProduct-053 - Quantity product updated successfully', async ({ page 
 });
 
 test('UpdateProduct-054 - Quantity product updated unsuccessfully with quantity less than 1', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("1");
@@ -1559,15 +1421,7 @@ test('UpdateProduct-054 - Quantity product updated unsuccessfully with quantity 
 });
 
 test('UpdateProduct-055 - Quantity product updated unsuccessfully with quantity greater than 0 and less than or equal to 10000', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("1");
@@ -1591,15 +1445,7 @@ test('UpdateProduct-055 - Quantity product updated unsuccessfully with quantity 
 });
 
 test('UpdateProduct-056 - Verify thay the number of products updated is 0, product is removed from  the cart', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
+    await asusLaptop_5(page);
 
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("1");
@@ -1624,16 +1470,7 @@ test('UpdateProduct-056 - Verify thay the number of products updated is 0, produ
 });
 // REMOVE
 test('RemoveProduct-057 - Product successfully removed ', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator(".menu__link[href='/computers']").click();
-    await page.waitForTimeout(1000);
-    await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
-
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
-    await page.waitForTimeout(1000);
-
+    await asusLaptop_5(page);
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("1");
     await page.locator(" #add-to-cart-button-5").click();
