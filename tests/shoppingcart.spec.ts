@@ -1490,6 +1490,26 @@ test('RemoveProduct-057 - Product successfully removed ', async ({ page }) => {
     ).toHaveCount(0);
 });
 
+test.only('TotalProduct-058 - Verify Gift Wrapping fee calculation ', async ({ page }) => {
+    await asusLaptop_5(page);
+    // Enter quantity = 1
+    await page.locator("#product_enteredQuantity_5").fill("1");
+    await page.locator(" #add-to-cart-button-5").click();
+
+    await page.locator(".cart-label").click();
+
+    await page.waitForSelector("#checkout_attribute_1", { state: 'visible', timeout: 60000 });
+    await page.waitForTimeout(1000);
+    await page.locator("#checkout_attribute_1").scrollIntoViewIfNeeded();
+    await page.locator("#checkout_attribute_1").selectOption("Yes [+$10.00]");
+    await page.waitForTimeout(2000);
+
+     // Expected result
+
+     await expect( page.locator(".selected-checkout-attributes")).toContainText("Gift wrapping: Yes [+$10.00]");
+     await expect(page.locator("span.value-summary strong")).toHaveText("$1,510.00");
+});
+
 
 
 
