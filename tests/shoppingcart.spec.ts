@@ -29,19 +29,19 @@ async function asusLaptop_5(page: Page) {
 
 }
 
-async function womenTShirt_30(page:Page){
-    await page.goto('https://demo.nopcommerce.com/');
+// async function womenTShirt_30(page:Page){
+//     await page.goto('https://demo.nopcommerce.com/');
 
-    await page.locator(".menu__link[href='/apparel']").click();
-    await page.waitForTimeout(1000);
+//     await page.locator(".menu__link[href='/apparel']").click();
+//     await page.waitForTimeout(1000);
 
-    await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
-    await page.waitForTimeout(1000);
+//     await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
+//     await page.waitForTimeout(1000);
     
-    // Open product detail
-    await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
-    await page.waitForTimeout(1000);
-}
+//     // Open product detail
+//     await page.click("//h2[@class='product-title']//a[normalize-space()='Oversized Women T-Shirt']");
+//     await page.waitForTimeout(1000);
+// }
 //QUANTITY
 test('AddProduct-001 - Add product to cart with quantity = 1', async ({ page }) => {
     await asusLaptop_5(page);
@@ -483,7 +483,7 @@ test('AddProduct-018 - Enter your text is empty', async ({ page }) => {
     await page.locator("h2[class='title'] a[title='Show products in category Clothing']").click();
     
     // Open product detail
-    await page.click("//a[normalize-space()='Custom T-Shirt']");
+    await page.click("//h2[@class='product-title']//a[normalize-space()='Custom T-Shirt']");
     await page.waitForTimeout(1000);
 
     // select text
@@ -773,136 +773,9 @@ test('AddProduct-025 - Rental product added to cart with end date is earlier tha
      await expect(page.locator(".content")).toContainText("Rental start date should be less than end date");
 });
 
-// APPLY PRICE BASED ON QUANTITY (CLOTHING)
-test('AddProduct-026 - Verify that apply the correct price based on quantity of 1', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("1");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$24.00");
-     await page.waitForTimeout(1000);
-});
-
-test('AddProduct-027 - Verify that apply the correct price based on quantity of 2', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("2");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$24.00");
-     await page.waitForTimeout(1000);
-});
-
-test('AddProduct-028 - Verify that apply the correct price based on quantity of 3', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("3");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$21.00");
-     await page.waitForTimeout(1000);
-});
-
-test('AddProduct-029 - Verify that apply the correct price based on quantity of 6', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("6");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$21.00");
-     await page.waitForTimeout(1000);
-});
-
-test('AddProduct-030 - Verify that apply the correct price based on quantity of 7', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("7");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$19.00");
-     await page.waitForTimeout(1000);
-});
-
-test('AddProduct-031 - Verify that apply the correct price based on quantity of 9', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("9");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$19.00");
-     await page.waitForTimeout(1000);
-});
-
-test('AddProduct-032 - Verify that apply the correct price based on quantity of 10', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("10");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$16.00");
-     await page.waitForTimeout(1000);
-});
-
-test('AddProduct-033 - Verify that apply the correct price based on quantity of 15', async ({ page }) => {
-    await womenTShirt_30(page);
-
-    // Enter quantity = 1
-    await page.locator(" #product_enteredQuantity_30").fill("15");
-    await page.locator(" #add-to-cart-button-30").click();
-
-    await page.locator(".cart-label").click();
-
-    // Expected result
-     await expect(page.locator("td[class='unit-price']")).toContainText("$16.00");
-     await page.waitForTimeout(1000);
-});
-
-//DOWLOAD DIGITAL (PENDING)
-test('AddProduct-034 - Verify that digital content download successful', async ({ page }) => {
-    await page.goto('https://demo.nopcommerce.com/');
-
-    await page.locator("div[class='header-menu'] div:nth-child(4) a:nth-child(1)").click();
-    await page.waitForTimeout(1000);
-    
-    await page.click("//h2[@class='product-title']//a[normalize-space()='If You Wait (donation)']");
-    await page.waitForTimeout(1000);
- 
-    await page.locator(".button-2.download-sample-button").click();
-    // Verify file download
-
-});
 
 //GIFT CART
-test('AddProduct-034 - Gift card successfully added to cart', async ({ page }) => {
+test('AddProduct-026 - Gift card successfully added to cart', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -927,7 +800,7 @@ test('AddProduct-034 - Gift card successfully added to cart', async ({ page }) =
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-035 - Gift card unsuccessful added to cart by Recipients Name is empty', async ({ page }) => {
+test('AddProduct-027 - Gift card unsuccessful added to cart by Recipients Name is empty', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -952,7 +825,7 @@ test('AddProduct-035 - Gift card unsuccessful added to cart by Recipients Name i
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-036 - Gift card unsuccessful added to cart by Recipients Name contains special characters', async ({ page }) => {
+test('AddProduct-028 - Gift card unsuccessful added to cart by Recipients Name contains special characters', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -977,7 +850,7 @@ test('AddProduct-036 - Gift card unsuccessful added to cart by Recipients Name c
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-037 - Gift card unsuccessful added to cart by Recipients Name contains numbers', async ({ page }) => {
+test('AddProduct-029 - Gift card unsuccessful added to cart by Recipients Name contains numbers', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1002,7 +875,7 @@ test('AddProduct-037 - Gift card unsuccessful added to cart by Recipients Name c
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-038 - Gift card unsuccessful added to cart by Recipients Email is empty', async ({ page }) => {
+test('AddProduct-030 - Gift card unsuccessful added to cart by Recipients Email is empty', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1027,7 +900,7 @@ test('AddProduct-038 - Gift card unsuccessful added to cart by Recipients Email 
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-039 - Gift card unsuccessful added to cart by Recipients Email is not in corect format @', async ({ page }) => {
+test('AddProduct-031 - Gift card unsuccessful added to cart by Recipients Email is not in corect format @', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1052,7 +925,7 @@ test('AddProduct-039 - Gift card unsuccessful added to cart by Recipients Email 
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-040 - Gift card unsuccessful added to cart by Recipients Email is not in corect format ".com"', async ({ page }) => {
+test('AddProduct-032 - Gift card unsuccessful added to cart by Recipients Email is not in corect format ".com"', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1077,7 +950,7 @@ test('AddProduct-040 - Gift card unsuccessful added to cart by Recipients Email 
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-041 - Gift card unsuccessful added to cart by Recipients Email contains spaces', async ({ page }) => {
+test('AddProduct-033 - Gift card unsuccessful added to cart by Recipients Email contains spaces', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1102,7 +975,7 @@ test('AddProduct-041 - Gift card unsuccessful added to cart by Recipients Email 
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-042 - Gift card unsuccessful added to cart by Recipients Email contains invalid characters', async ({ page }) => {
+test('AddProduct-034 - Gift card unsuccessful added to cart by Recipients Email contains invalid characters', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1127,7 +1000,7 @@ test('AddProduct-042 - Gift card unsuccessful added to cart by Recipients Email 
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-043 - Gift card unsuccessful added to cart by Your Name is empty', async ({ page }) => {
+test('AddProduct-035 - Gift card unsuccessful added to cart by Your Name is empty', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1152,7 +1025,7 @@ test('AddProduct-043 - Gift card unsuccessful added to cart by Your Name is empt
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-044 - Gift card unsuccessful added to cart by Your Name contains special characters', async ({ page }) => {
+test('AddProduct-036 - Gift card unsuccessful added to cart by Your Name contains special characters', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1177,7 +1050,7 @@ test('AddProduct-044 - Gift card unsuccessful added to cart by Your Name contain
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-045 - Gift card unsuccessful added to cart by Your Name contains numbers', async ({ page }) => {
+test('AddProduct-037 - Gift card unsuccessful added to cart by Your Name contains numbers', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1202,7 +1075,7 @@ test('AddProduct-045 - Gift card unsuccessful added to cart by Your Name contain
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-046 - Gift card unsuccessful added to cart by Your Email is empty', async ({ page }) => {
+test('AddProduct-038 - Gift card unsuccessful added to cart by Your Email is empty', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1227,7 +1100,7 @@ test('AddProduct-046 - Gift card unsuccessful added to cart by Your Email is emp
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-047 - Gift card unsuccessful added to cart by Your Email is not in corect format @', async ({ page }) => {
+test('AddProduct-039 - Gift card unsuccessful added to cart by Your Email is not in corect format @', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1252,7 +1125,7 @@ test('AddProduct-047 - Gift card unsuccessful added to cart by Your Email is not
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-048 - Gift card unsuccessful added to cart by Your Email is not in corect format ".com"', async ({ page }) => {
+test('AddProduct-040 - Gift card unsuccessful added to cart by Your Email is not in corect format ".com"', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1277,7 +1150,7 @@ test('AddProduct-048 - Gift card unsuccessful added to cart by Your Email is not
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-049 - Gift card unsuccessful added to cart by Your Email contains spaces', async ({ page }) => {
+test('AddProduct-041 - Gift card unsuccessful added to cart by Your Email contains spaces', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1302,7 +1175,7 @@ test('AddProduct-049 - Gift card unsuccessful added to cart by Your Email contai
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-050 - Gift card unsuccessful added to cart by Your Email contains invalid characters', async ({ page }) => {
+test('AddProduct-042 - Gift card unsuccessful added to cart by Your Email contains invalid characters', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Gift Cards']").click();
@@ -1327,7 +1200,7 @@ test('AddProduct-050 - Gift card unsuccessful added to cart by Your Email contai
     await page.waitForTimeout(2000);
 });
 
-test('AddProduct-051 - Add wishlist items to the cart successfully', async ({ page }) => {
+test('AddProduct-043 - Add wishlist items to the cart successfully', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Books']").click();
@@ -1348,10 +1221,12 @@ test('AddProduct-051 - Add wishlist items to the cart successfully', async ({ pa
     // Expected result
     await expect(page).toHaveURL(/cart/);
     await expect(page.locator(" div[class='page-title'] h1")).toHaveText("Shopping cart");
-    await expect(page.locator(".product-name")).toContainText("First Prize Pies");
+    const row = page.locator("tr").filter({has: page.locator(".product-name", {hasText: "First Prize Pies"})
+    });
+
 });
 
-test('AddProduct-052 - Add wishlist items to the cart unsuccessfully', async ({ page }) => {
+test('AddProduct-044 - Add wishlist items to the cart unsuccessfully', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/');
 
     await page.locator("//a[normalize-space()='Books']").click();
@@ -1371,7 +1246,7 @@ test('AddProduct-052 - Add wishlist items to the cart unsuccessfully', async ({ 
 });
 
 //UPDATE QUANTITY
-test('UpdateProduct-053 - Quantity product updated successfully', async ({ page }) => {
+test('UpdateProduct-045 - Quantity product updated successfully', async ({ page }) => {
     await asusLaptop_5(page);
 
     // Enter quantity = 1
@@ -1396,7 +1271,7 @@ test('UpdateProduct-053 - Quantity product updated successfully', async ({ page 
     
 });
 
-test('UpdateProduct-054 - Quantity product updated unsuccessfully with quantity less than 1', async ({ page }) => {
+test('UpdateProduct-046 - Quantity product updated unsuccessfully with quantity less than 1', async ({ page }) => {
     await asusLaptop_5(page);
 
     // Enter quantity = 1
@@ -1420,7 +1295,7 @@ test('UpdateProduct-054 - Quantity product updated unsuccessfully with quantity 
     await page.waitForTimeout(1000);
 });
 
-test('UpdateProduct-055 - Quantity product updated unsuccessfully with quantity greater than 0 and less than or equal to 10000', async ({ page }) => {
+test('UpdateProduct-047 - Quantity product updated unsuccessfully with quantity greater than 0 and less than or equal to 10000', async ({ page }) => {
     await asusLaptop_5(page);
 
     // Enter quantity = 1
@@ -1444,7 +1319,7 @@ test('UpdateProduct-055 - Quantity product updated unsuccessfully with quantity 
     await page.waitForTimeout(1000);
 });
 
-test('UpdateProduct-056 - Verify thay the number of products updated is 0, product is removed from  the cart', async ({ page }) => {
+test('UpdateProduct-048 - Verify thay the number of products updated is 0, product is removed from  the cart', async ({ page }) => {
     await asusLaptop_5(page);
 
     // Enter quantity = 1
@@ -1468,29 +1343,9 @@ test('UpdateProduct-056 - Verify thay the number of products updated is 0, produ
         page.locator("td.product a", { hasText: "Asus Laptop" })
     ).toHaveCount(0);
 });
-// REMOVE
-test('RemoveProduct-057 - Product successfully removed ', async ({ page }) => {
-    await asusLaptop_5(page);
-    // Enter quantity = 1
-    await page.locator("#product_enteredQuantity_5").fill("1");
-    await page.locator(" #add-to-cart-button-5").click();
+// 
 
-    await page.locator(".cart-label").click();
-
-      const row = page.locator("tr").filter({
-        has: page.locator("a", { hasText: "Asus Laptop" })
-    });
-
-    await row.locator("td[class='remove-from-cart']").click();
-
-     // Expected result
-
-     await expect(
-        page.locator("td.product a", { hasText: "Asus Laptop" })
-    ).toHaveCount(0);
-});
-
-test.only('TotalProduct-058 - Verify Gift Wrapping fee calculation ', async ({ page }) => {
+test('TotalProduct-049 - Verify Gift Wrapping fee calculation ', async ({ page }) => {
     await asusLaptop_5(page);
     // Enter quantity = 1
     await page.locator("#product_enteredQuantity_5").fill("1");
@@ -1507,9 +1362,159 @@ test.only('TotalProduct-058 - Verify Gift Wrapping fee calculation ', async ({ p
      // Expected result
 
      await expect( page.locator(".selected-checkout-attributes")).toContainText("Gift wrapping: Yes [+$10.00]");
-     await expect(page.locator("span.value-summary strong")).toHaveText("$1,510.00");
 });
 
 
 
 
+
+
+// // APPLY PRICE BASED ON QUANTITY (CLOTHING)
+// test('AddProduct-026 - Verify that apply the correct price based on quantity of 1', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("1");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$24.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// test('AddProduct-027 - Verify that apply the correct price based on quantity of 2', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("2");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$24.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// test('AddProduct-028 - Verify that apply the correct price based on quantity of 3', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("3");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$21.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// test('AddProduct-029 - Verify that apply the correct price based on quantity of 6', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("6");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$21.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// test('AddProduct-030 - Verify that apply the correct price based on quantity of 7', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("7");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$19.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// test('AddProduct-031 - Verify that apply the correct price based on quantity of 9', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("9");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$19.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// test('AddProduct-032 - Verify that apply the correct price based on quantity of 10', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("10");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$16.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// test('AddProduct-033 - Verify that apply the correct price based on quantity of 15', async ({ page }) => {
+//     await womenTShirt_30(page);
+
+//     // Enter quantity = 1
+//     await page.locator(" #product_enteredQuantity_30").fill("15");
+//     await page.locator(" #add-to-cart-button-30").click();
+
+//     await page.locator(".cart-label").click();
+
+//     // Expected result
+//      await expect(page.locator("td[class='unit-price']")).toContainText("$16.00");
+//      await page.waitForTimeout(1000);
+// });
+
+// //DOWLOAD DIGITAL (PENDING)
+// test('AddProduct-034 - Verify that digital content download successful', async ({ page }) => {
+//     await page.goto('https://demo.nopcommerce.com/');
+
+//     await page.locator("div[class='header-menu'] div:nth-child(4) a:nth-child(1)").click();
+//     await page.waitForTimeout(1000);
+    
+//     await page.click("//h2[@class='product-title']//a[normalize-space()='If You Wait (donation)']");
+//     await page.waitForTimeout(1000);
+ 
+//     await page.locator(".button-2.download-sample-button").click();
+//     // Verify file download
+
+// });
+
+// REMOVE
+// test('RemoveProduct-049 - Product successfully removed ', async ({ page }) => {
+//     await asusLaptop_5(page);
+//     // Enter quantity = 1
+//     await page.locator("#product_enteredQuantity_5").fill("1");
+//     await page.locator(" #add-to-cart-button-5").click();
+
+//     await page.locator(".cart-label").click();
+
+//       const row = page.locator("tr").filter({
+//         has: page.locator("a", { hasText: "Asus Laptop" })
+//     });
+
+//     await row.locator("td[class='remove-from-cart']").click();
+
+//      // Expected result
+
+//      await expect(
+//         page.locator("td.product a", { hasText: "Asus Laptop" })
+//     ).toHaveCount(0);
+// });

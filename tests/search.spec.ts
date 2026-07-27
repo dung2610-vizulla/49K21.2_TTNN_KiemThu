@@ -313,7 +313,7 @@ test('Search-019 - Search by Manufacturer with a valid keyword', async ({ page }
     await page.waitForTimeout(2000);
 });
 
-test.only('Search-020 - Search by Manufacturer without a keyword', async ({ page }) => {
+test('Search-020 - Search by Manufacturer without a keyword', async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com/search');
     await page.locator('#q').fill("");
 
