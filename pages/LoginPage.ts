@@ -2,6 +2,7 @@ import { Page, expect } from "@playwright/test";
 import { BasePage } from "./BasePages";
 
 export class LoginPage extends BasePage {
+    readonly url = 'https://demo.nopcommerce.com/login';
     private emailInput = this.page.locator("#Email");
     private passwordInput = this.page.locator("#Password");
     private loginButton = this.page.locator("button.login-button");
@@ -100,5 +101,12 @@ export class LoginPage extends BasePage {
     }
     async blurEmail() {
         await this.emailInput.blur();
+    }
+    async login_1(email: string, password: string) {
+        await this.goto(this.url);
+        await this.inputText(this.emailInput, email, 'Email');
+        await this.inputText(this.passwordInput, password, 'Password');
+        await this.clickElement(this.loginButton, 'Login button');
+        await this.page.waitForLoadState('networkidle');
     }
 }

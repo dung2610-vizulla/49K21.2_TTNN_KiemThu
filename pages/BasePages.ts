@@ -31,4 +31,20 @@ export class BasePage {
         console.log(`Inputting ${text} into element: ${elementName}`);
         await selector.fill(text);
     }
+    // select option
+    async selectOption(selector: Locator, value: string, elementName: string) {
+        console.log(`Selecting "${value}" on element: ${elementName}`);
+        await selector.selectOption(value);
+    }
+ 
+    // check checkbox / radio
+    async checkElement(selector: Locator, elementName: string) {
+        console.log(`Checking element: ${elementName}`);
+        await selector.check();
+    }
+ 
+    // wait helper (kept only where the app genuinely needs it, e.g. dynamic attribute lists)
+    async waitFor(selector: Locator, timeout = 60000) {
+        await selector.waitFor({ state: 'visible', timeout });
+    }
 }
