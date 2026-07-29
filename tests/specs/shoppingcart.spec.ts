@@ -1,18 +1,10 @@
 import { test, expect, type Page } from '@playwright/test';
-import { LoginPage } from '/TMA/49K21.2_TTNN/pages/LoginPage';
-import { HomePage } from '/TMA/49K21.2_TTNN/pages/HomePage';
-import { ProductPage } from '/TMA/49K21.2_TTNN/pages/ProductPage';
-import { ShoppingCartPage } from '/TMA/49K21.2_TTNN/pages/ShoppingCart';
-import { WishListPage } from '/TMA/49K21.2_TTNN/pages/WishListPage';
- 
-async function loginBeforeCart(page: Page) {
-    const email = process.env.NOP_EMAIL || 'dunghoang@gmail.com';
-    const password = process.env.NOP_PASSWORD || '123456';
- 
-    const loginPage = new LoginPage(page);
-    await loginPage.login(email, password);
-}
- 
+import { HomePage } from '../../pages/HomePage';
+import { ProductPage } from '../../pages/ProductPage';
+import { ShoppingCartPage } from '../../pages/ShoppingCart';
+import { WishListPage } from '../../pages/WishListPage';
+test.describe("Shopping Cart Tests", () => {
+
 test.beforeEach(async ({ page }) => {
     await page.goto('https://demo.nopcommerce.com');
 });
@@ -1057,3 +1049,4 @@ test('TotalProduct-049 - Verify Gift Wrapping fee calculation ', async ({ page }
 //         page.locator("td.product a", { hasText: "Asus Laptop" })
 //     ).toHaveCount(0);
 // });
+ });
