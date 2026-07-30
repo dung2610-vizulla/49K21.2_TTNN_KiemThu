@@ -76,9 +76,10 @@ export class CheckoutPage extends BasePage {
     get billingAddressSelect() { return this.page.locator("//select[@id='billing-address-select']"); }
     get billingAddressSelectedOption() { return this.page.locator("#billing-address-select option:checked"); }
     get editBillingAddressButton() { return this.page.locator("//button[@id='edit-billing-address-button']"); }
-    get saveEditedBillingAddressButton() { return this.page.locator("//button[@id='save-billing-address-button']"); }
+    get saveEditedBillingAddressButton() { return this.page.locator("(//button[@id='save-billing-address-button'])[1]"); }
     get deleteBillingAddressButton() { return this.page.locator("//button[@id='delete-billing-address-button']"); }
- 
+    get billingAddressMethodStepButton(){return this.page.locator("//button[@onclick='if (!window.__cfRLUnblockHandlers) return false; Billing.save()']")}
+
     // Shipping method step
     get shippingMethodForm() { return this.page.locator("//form[@id='co-shipping-method-form']"); }
     get shippingMethodNextStepButton() { return this.page.locator("//button[@class='button-1 shipping-method-next-step-button']"); }
@@ -155,7 +156,7 @@ export class CheckoutPage extends BasePage {
         if (data.phone !== undefined) {
             await this.inputText(this.billingPhoneInput, data.phone, "Billing Phone Number");
         }
-        await this.page.waitForTimeout(1000);
+        //await this.page.waitForTimeout(1000);
     }
  
     async clickSaveNewBillingAddress() {
@@ -168,29 +169,38 @@ export class CheckoutPage extends BasePage {
         await this.clickSaveNewBillingAddress();
     }
  
+    async expectAlertOnSave(saveAction: () => Promise<void>, expectedMessage: string) {
+        const dialogPromise = this.page.waitForEvent("dialog");
+        await saveAction();
+        const dialog = await dialogPromise;
+        expect(dialog.type()).toBe("alert");
+        expect(dialog.message()).toBe(expectedMessage);
+        await dialog.accept();
+    }
+
     /**
      * Fills the form, clicks save, and asserts the resulting native `alert` dialog
      * (nopCommerce's client-side validation) matches `expectedMessage`.
      */
     async submitNewBillingAddressExpectingAlert(data: BillingAddressData, expectedMessage: string) {
         await this.fillBillingAddress(data);
-        const dialogPromise = this.page.waitForEvent("dialog");
-        await this.clickSaveNewBillingAddress();
-        const dialog = await dialogPromise;
-        expect(dialog.type()).toBe("alert");
-        expect(dialog.message()).toBe(expectedMessage);
-        await dialog.accept();
+        await this.expectAlertOnSave(() => this.clickSaveNewBillingAddress(), expectedMessage);
+    }
+
+    async clickSaveEditedBillingAddressExpectingAlert(expectedMessage: string) {
+        await this.expectAlertOnSave(() => this.clickSaveEditedBillingAddress(), expectedMessage);
     }
  
     // ---------- Billing address (existing address: select / edit / delete) ----------
  
     async selectExistingBillingAddress(value: string) {
         await this.waitFor(this.billingAddressSelect);
-        await this.page.waitForTimeout(1000);
+       // await this.page.waitForTimeout(1000);
         await this.billingAddressSelect.scrollIntoViewIfNeeded();
         await this.selectOption(this.billingAddressSelect, value, "Billing address select");
         await this.page.waitForTimeout(1000);
     }
+
  
     async clickEditBillingAddress() {
         await this.clickElement(this.editBillingAddressButton, "Edit billing address button");
@@ -202,6 +212,11 @@ export class CheckoutPage extends BasePage {
  
     async clickDeleteBillingAddress() {
         await this.clickElement(this.deleteBillingAddressButton, "Delete billing address button");
+    }
+    //-----------Billing address method step -----------
+
+    async clickBilillingMethodStep(){
+        await this.clickElement(this.billingAddressMethodStepButton, "Billing method next step button")
     }
  
     // ---------- Shipping method step ----------
@@ -225,10 +240,10 @@ export class CheckoutPage extends BasePage {
     async fillCreditCardInfo(data: CreditCardData = {}) {
         if (data.cardType !== undefined) {
             await this.waitFor(this.creditCardTypeSelect);
-            await this.page.waitForTimeout(1000);
+           // await this.page.waitForTimeout(1000);
             await this.creditCardTypeSelect.scrollIntoViewIfNeeded();
             await this.selectOption(this.creditCardTypeSelect, data.cardType, "Credit card type");
-            await this.page.waitForTimeout(1000);
+            //await this.page.waitForTimeout(1000);
         }
         if (data.cardholderName !== undefined) {
             await this.inputText(this.cardholderNameInput, data.cardholderName, "Cardholder name");
@@ -245,10 +260,10 @@ export class CheckoutPage extends BasePage {
         }
         if (data.expireYear !== undefined) {
             await this.waitFor(this.expireYearSelect);
-            await this.page.waitForTimeout(1000);
+            //await this.page.waitForTimeout(1000);
             await this.expireYearSelect.scrollIntoViewIfNeeded();
             await this.selectOption(this.expireYearSelect, data.expireYear, "Expire year");
-            await this.page.waitForTimeout(1000);
+            //await this.page.waitForTimeout(1000);
         }
         if (data.cardCode !== undefined) {
             await this.inputText(this.cardCodeInput, data.cardCode, "Card code (CVV)");
@@ -278,6 +293,7 @@ export class CheckoutPage extends BasePage {
  
     /** Goes through shipping method + payment method(free choice) + payment info + confirm order using defaults. */
     async completeCheckoutWithDefaultShipping() {
+        await this.clickBilillingMethodStep();
         await this.clickShippingMethodNextStep();
         await this.clickPaymentMethodNextStep();
         await this.page.waitForTimeout(2000);

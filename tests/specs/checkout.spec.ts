@@ -25,15 +25,13 @@ test.beforeEach(async ({ page }) => {
 async function addLaptopToCheckout(page: Page) {
     const checkoutPage = new CheckoutPage(page);
  
-    await page.goto("https://demo.nopcommerce.com/");
- 
     await page.locator(".menu__link[href='/computers']").click();
     await page.locator("h2[class='title'] a[title='Show products in category Notebooks']").click();
     await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
  
-    await page.locator("#product_enteredQuantity_5").fill("1");
-    await page.locator("#add-to-cart-button-5").click();
- 
+    await page.locator("//input[@id='product_enteredQuantity_5']").fill("3");
+    await page.locator("//button[@id='add-to-cart-button-5']").click();
+    await page.waitForTimeout(5000);
     await checkoutPage.proceedToCheckoutFromCart();
 }
  
@@ -46,10 +44,9 @@ async function exitAddress(checkoutPage: CheckoutPage) {
  
 test('Checkout-001 - Confirm Billing address successful when no address exists ', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
+
     await addLaptopToCheckout(page);
     await checkoutPage.submitNewBillingAddress(VALID_BILLING_ADDRESS);
- 
     await checkoutPage.expectShippingMethodFormVisible();
 });
  
@@ -129,6 +126,7 @@ test('Checkout-008 - Confirm Billing address unsuccessful when no address exists
     const checkoutPage = new CheckoutPage(page);
  
     await addLaptopToCheckout(page);
+    await page.waitForTimeout(1000);
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         { ...VALID_BILLING_ADDRESS, email: '' },
         'Email is required.'
@@ -380,10 +378,8 @@ test('Checkout-026 - Edit Billing address unsuccessful when address exists by Fi
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ firstName: '' });
-    await page.waitForTimeout(2000);
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'First name is required.');
+    await page.waitForTimeout(1000);
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('First name is required.');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -397,10 +393,8 @@ test('Checkout-027 - Edit Billing address unsuccessful when address exists by La
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ lastName: '' });
-    await page.waitForTimeout(2000);
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'Last name is required.');
+    await page.waitForTimeout(1000);
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('Last name is required.');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -414,10 +408,8 @@ test('Checkout-028 - Edit Billing address unsuccessful when address exists by Em
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ email: '' });
-    await page.waitForTimeout(2000);
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'Email is required.');
+    await page.waitForTimeout(1000);
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('Email is required.');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -431,9 +423,7 @@ test('Checkout-029 - Edit Billing address unsuccessful when address exists by Co
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ country: 'Select country' });
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'Country is required.');
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('Country is required.');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -447,9 +437,7 @@ test('Checkout-030 - Edit Billing address unsuccessful when address exists by St
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ state: 'Select state' });
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'State / province is required.');
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('State / province is required.');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -463,10 +451,7 @@ test('Checkout-031 - Edit Billing address unsuccessful when address exists by Ci
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ city: '' });
-    await page.waitForTimeout(2000);
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'City is required');
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('City is required');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -480,10 +465,7 @@ test('Checkout-032 - Edit Billing address unsuccessful when address exists by Ad
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ address1: '' });
-    await page.waitForTimeout(2000);
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'Street address is required');
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('Street address is required');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -497,10 +479,7 @@ test('Checkout-033 - Edit Billing address unsuccessful when address exists by Zi
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ zipCode: '' });
-    await page.waitForTimeout(2000);
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'Zip / postal code is required');
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('Zip / postal code is required');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -514,10 +493,7 @@ test('Checkout-034 - Edit Billing address unsuccessful when address exists by Ph
     await checkoutPage.clickEditBillingAddress();
  
     await checkoutPage.fillBillingAddress({ phone: '' });
-    await page.waitForTimeout(2000);
-    await checkoutPage.clickSaveEditedBillingAddress();
- 
-    await checkoutPage.submitNewBillingAddressExpectingAlert({}, 'Phone is required');
+    await checkoutPage.clickSaveEditedBillingAddressExpectingAlert('Phone is required');
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
@@ -589,10 +565,10 @@ test('Checkout-038 - Confirm Payment Information successfully By Credit Card', a
     await checkoutPage.clickPaymentMethodNextStep();
  
     await checkoutPage.fillCreditCardInfo(VALID_CREDIT_CARD);
- 
+    await page.waitForTimeout(2000);
     await checkoutPage.clickPaymentInfoNextStep();
     await checkoutPage.clickConfirmOrderNextStep();
-    await page.waitForTimeout(2000);
+    
  
     await checkoutPage.expectOrderPlacedSuccessfully();
 });
@@ -700,7 +676,7 @@ test('Checkout-044 - Confirm Payment Information unsuccessfully By Card code is 
     await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardCode: '' });
  
     await checkoutPage.clickPaymentInfoNextStep();
-    await page.waitForTimeout(2000);
+    //await page.waitForTimeout(2000);
  
     await checkoutPage.expectValidationError('Wrong card code');
 });
