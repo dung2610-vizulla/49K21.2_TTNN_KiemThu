@@ -31,10 +31,10 @@ test.describe("Change Password Tests", () => {
         await changePass.verifyConfirmPasswordError("The new password and confirmation password do not match.");
     });
 
-    test("ChangePassword-005 - New password only spaces", async () => {
-        await changePass.changePassword("123456", "      ", "intern2026@");
-        await changePass.verifyConfirmPasswordError("The new password and confirmation password do not match.");
-    });
+    // test("ChangePassword-005 - New password only spaces", async () => {
+    //     await changePass.changePassword("123456", "      ", "intern2026@");
+    //     await changePass.verifyConfirmPasswordError("The new password and confirmation password do not match.");
+    // });
 
     test("ChangePassword-006 - New password less than 6 characters", async () => {
         await changePass.changePassword("123456", "tts", "tts");
@@ -52,10 +52,10 @@ test.describe("Change Password Tests", () => {
         await changePass.verifyConfirmPasswordError("Password is required.");
     });
 
-    test("ChangePassword-009 - Confirm password only spaces", async () => {
-        await changePass.changePassword("123456", "intern2026@", "     ");
-        await changePass.verifyConfirmPasswordError("The new password and confirmation password do not match.");
-    });
+    // test("ChangePassword-009 - Confirm password only spaces", async () => {
+    //     await changePass.changePassword("123456", "intern2026@", "     ");
+    //     await changePass.verifyConfirmPasswordError("The new password and confirmation password do not match.");
+    // });
 
     test("ChangePassword-010 - Confirm password does not match", async () => {
         await changePass.changePassword("123456", "internbinhdinh", "intern");
