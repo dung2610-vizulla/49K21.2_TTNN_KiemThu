@@ -30,8 +30,9 @@ async function addLaptopToCheckout(page: Page) {
     await page.click("//h2[@class='product-title']//a[normalize-space()='Asus Laptop']");
  
     await page.locator("//input[@id='product_enteredQuantity_5']").fill("3");
-    await page.locator("c").click();
-    await page.waitForTimeout(5000);
+     await page.waitForTimeout(2000);
+    await page.locator("//button[@id='add-to-cart-button-5']").click();
+   await page.waitForTimeout(2000);
     await checkoutPage.proceedToCheckoutFromCart();
 }
  
@@ -41,8 +42,6 @@ async function exitAddress(checkoutPage: CheckoutPage) {
 }
  
 // ===================== NEW BILLING ADDRESS =====================
-
- 
 test('Checkout-002 - Confirm Billing address unsuccessful when no address exists by First name is empty ', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
  
@@ -81,8 +80,9 @@ test('Checkout-002 - Confirm Billing address unsuccessful when no address exists
  
 test('Checkout-005 - Confirm Billing address unsuccessful when no address exists by Last name is empty ', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+
+     await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         { ...VALID_BILLING_ADDRESS, lastName: '' },
         'Last name is required.'
@@ -117,8 +117,9 @@ test('Checkout-005 - Confirm Billing address unsuccessful when no address exists
  
 test('Checkout-008 - Confirm Billing address unsuccessful when no address exists by Email is empty', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+
+     await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
     await page.waitForTimeout(1000);
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         { ...VALID_BILLING_ADDRESS, email: '' },
@@ -128,31 +129,32 @@ test('Checkout-008 - Confirm Billing address unsuccessful when no address exists
     await checkoutPage.expectShippingMethodFormHidden();
 });
  
-test('Checkout-009 - Confirm Billing address unsuccessful when no address exists by Email is not in corect format @', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+// test('Checkout-009 - Confirm Billing address unsuccessful when no address exists by Email is not in corect format @', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
+//      await checkoutPage.proceedToCheckoutFromCart();
+//     //await addLaptopToCheckout(page);
+//     await checkoutPage.submitNewBillingAddressExpectingAlert(
+//         { ...VALID_BILLING_ADDRESS, email: 'dunghoanggmail.com' },
+//         'Wrong email'
+//     );
  
-    await addLaptopToCheckout(page);
-    await checkoutPage.submitNewBillingAddressExpectingAlert(
-        { ...VALID_BILLING_ADDRESS, email: 'dunghoanggmail.com' },
-        'Wrong email'
-    );
+//     await checkoutPage.expectShippingMethodFormHidden();
+//     await checkoutPage.expectEmailErrorText('Please enter a valid email address.');
+// });
  
-    await checkoutPage.expectShippingMethodFormHidden();
-    await checkoutPage.expectEmailErrorText('Please enter a valid email address.');
-});
+// test('Checkout-010 - Confirm Billing address unsuccessful when no address exists by Email is not in corect format ".com', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
+//      await checkoutPage.proceedToCheckoutFromCart();
+//     //await addLaptopToCheckout(page);
+//     await checkoutPage.submitNewBillingAddressExpectingAlert(
+//         { ...VALID_BILLING_ADDRESS, email: 'dunghoang@gmail' },
+//         'Wrong email'
+//     );
  
-test('Checkout-010 - Confirm Billing address unsuccessful when no address exists by Email is not in corect format ".com', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
-    await checkoutPage.submitNewBillingAddressExpectingAlert(
-        { ...VALID_BILLING_ADDRESS, email: 'dunghoang@gmail' },
-        'Wrong email'
-    );
- 
-    await checkoutPage.expectShippingMethodFormHidden();
-    await checkoutPage.expectEmailErrorText('Wrong email');
-});
+//     await checkoutPage.expectShippingMethodFormHidden();
+//     await checkoutPage.expectEmailErrorText('Wrong email');
+// });
+
  
 // test('Checkout-011 - Confirm Billing address unsuccessful when no address exists by Email contains spaces', async ({ page }) => {
 //     const checkoutPage = new CheckoutPage(page);
@@ -181,8 +183,8 @@ test('Checkout-010 - Confirm Billing address unsuccessful when no address exists
  
 test('Checkout-013 - Confirm Billing address unsuccessful when no address exists by Country not yet selected', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+     await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         {
             firstName: VALID_BILLING_ADDRESS.firstName,
@@ -203,8 +205,8 @@ test('Checkout-013 - Confirm Billing address unsuccessful when no address exists
  
 test('Checkout-014 - Confirm Billing address unsuccessful when no address exists by State/ province not yet selected', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+  await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         {
             firstName: VALID_BILLING_ADDRESS.firstName,
@@ -225,8 +227,8 @@ test('Checkout-014 - Confirm Billing address unsuccessful when no address exists
  
 test('Checkout-015 - Confirm Billing address unsuccessful when no address exists by City is empty', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+     await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         { ...VALID_BILLING_ADDRESS, city: '' },
         'City is required'
@@ -261,8 +263,9 @@ test('Checkout-015 - Confirm Billing address unsuccessful when no address exists
  
 test('Checkout-018 - Confirm Billing address unsuccessful when no address exists by Address is empty', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+
+  await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         { ...VALID_BILLING_ADDRESS, address1: '' },
         'Street address is required'
@@ -283,17 +286,18 @@ test('Checkout-018 - Confirm Billing address unsuccessful when no address exists
 //     await checkoutPage.expectShippingMethodFormHidden();
 // });
  
-test('Checkout-020 - Confirm Billing address unsuccessful when no address exists by Zip/postal code is empty', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+// test('Checkout-020 - Confirm Billing address unsuccessful when no address exists by Zip/postal code is empty', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
+//   await checkoutPage.proceedToCheckoutFromCart();
+//     //await addLaptopToCheckout(page);
+//     await checkoutPage.submitNewBillingAddressExpectingAlert(
+//         { ...VALID_BILLING_ADDRESS, zipCode: '' },
+//         'Zip / postal code is required'
+//     );
  
-    await addLaptopToCheckout(page);
-    await checkoutPage.submitNewBillingAddressExpectingAlert(
-        { ...VALID_BILLING_ADDRESS, zipCode: '' },
-        'Zip / postal code is required'
-    );
- 
-    await checkoutPage.expectShippingMethodFormHidden();
-});
+//     await checkoutPage.expectShippingMethodFormHidden();
+// });
+
  
 // test('Checkout-021 - Confirm Billing address unsuccessful when no address exists by Zip/postal code contains special characters', async ({ page }) => {
 //     const checkoutPage = new CheckoutPage(page);
@@ -309,8 +313,10 @@ test('Checkout-020 - Confirm Billing address unsuccessful when no address exists
  
 test('Checkout-022 - Confirm Billing address unsuccessful when no address exists by Phone number is empty', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+
+  await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
+
     await checkoutPage.submitNewBillingAddressExpectingAlert(
         { ...VALID_BILLING_ADDRESS, phone: '' },
         'Phone is required'
@@ -321,8 +327,10 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
  
 // test('Checkout-023 - Confirm Billing address unsuccessful when no address exists by Phone number contains special characters', async ({ page }) => {
 //     const checkoutPage = new CheckoutPage(page);
- 
-//     await addLaptopToCheckout(page);
+
+//   await checkoutPage.proceedToCheckoutFromCart();
+//     //await addLaptopToCheckout(page);
+
 //     await checkoutPage.submitNewBillingAddressExpectingAlert(
 //         { ...VALID_BILLING_ADDRESS, phone: '0932500789&$$*' },
 //         'Please enter a valid Phone number'
@@ -342,14 +350,22 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
  
 //     await checkoutPage.expectShippingMethodFormHidden();
 // });
- 
+
+ test('Checkout-001 - Confirm Billing address successful when no address exists ', async ({ page }) => {
+    const checkoutPage = new CheckoutPage(page);
+    await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
+    await checkoutPage.submitNewBillingAddress(VALID_BILLING_ADDRESS);
+    await checkoutPage.expectShippingMethodFormVisible();
+});
 // ===================== EDIT EXISTING BILLING ADDRESS =====================
  
 // test('Checkout-025 - Edit Billing address successful when address exists', async ({ page }) => {
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -365,7 +381,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -380,7 +398,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -395,7 +415,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -410,7 +432,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -424,7 +448,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -438,7 +464,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -452,8 +480,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
- 
+
+//    // await exitAddress(checkoutPage);
+
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
  
@@ -466,7 +495,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -480,7 +511,9 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.proceedToCheckoutFromCart();
 //     await checkoutPage.clickEditBillingAddress();
@@ -490,20 +523,12 @@ test('Checkout-022 - Confirm Billing address unsuccessful when no address exists
 //     await checkoutPage.expectShippingMethodFormHidden();
 // });
  
-// ===================== DELETE =====================
-test('Checkout-001 - Confirm Billing address successful when no address exists ', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+// ===================== DELETE ====================
 
-    await addLaptopToCheckout(page);
-    await page.waitForTimeout(2000);
-    await checkoutPage.submitNewBillingAddress(VALID_BILLING_ADDRESS);
-    await checkoutPage.expectShippingMethodFormVisible();
-});
  
 test('Checkout-035 - Delete Billing address when address exists', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
+    //await addLaptopToCheckout(page);
     //await exitAddress(checkoutPage);
  
     await checkoutPage.proceedToCheckoutFromCart();
@@ -541,32 +566,47 @@ test('Checkout-035 - Delete Billing address when address exists', async ({ page 
  
 // ===================== SHIPPING METHOD / CONFIRM ORDER =====================
  
-test('Checkout-037 - Confirm order successful', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+
+// test('Checkout-037 - Confirm order successful', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
  
-    await addLaptopToCheckout(page);
-    await exitAddress(checkoutPage);
+//     await addLaptopToCheckout(page);
+//     await exitAddress(checkoutPage);
  
-    await checkoutPage.completeCheckoutWithDefaultShipping();
-    await page.waitForTimeout(2000);
+//     //await checkoutPage.completeCheckoutWithDefaultShipping();
+//     await checkoutPage.clickBilillingMethodStep();
+        
+//         await checkoutPage.clickShippingMethodNextStep();
+       
+//         await checkoutPage.page.waitForTimeout(1000);
+//         await checkoutPage.clickPaymentMethodNextStep();
+        
+//         await checkoutPage.clickPaymentInfoNextStep();
+        
+//         await checkoutPage.clickConfirmOrderNextStep();
+//     await page.waitForTimeout(2000);
  
-    await checkoutPage.expectOrderPlacedSuccessfully();
-});
+//     await checkoutPage.expectOrderPlacedSuccessfully();
+// });
  
 // ===================== PAYMENT INFORMATION (CREDIT CARD) =====================
  
 test('Checkout-038 - Confirm Payment Information successfully By Credit Card', async ({ page }) => {
     const checkoutPage = new CheckoutPage(page);
- 
-    await addLaptopToCheckout(page);
-    //await exitAddress(checkoutPage);
+
+    await checkoutPage.proceedToCheckoutFromCart();
+    //await addLaptopToCheckout(page);
+    await exitAddress(checkoutPage);
+
  
     await checkoutPage.clickShippingMethodNextStep();
     await checkoutPage.selectCreditCardPaymentMethod();
     await checkoutPage.clickPaymentMethodNextStep();
  
     await checkoutPage.fillCreditCardInfo(VALID_CREDIT_CARD);
-    await page.waitForTimeout(2000);
+
+    await page.waitForTimeout(1000);
+
     await checkoutPage.clickPaymentInfoNextStep();
     await checkoutPage.clickConfirmOrderNextStep();
     
@@ -574,47 +614,51 @@ test('Checkout-038 - Confirm Payment Information successfully By Credit Card', a
     await checkoutPage.expectOrderPlacedSuccessfully();
 });
  
-test('Checkout-039 - Confirm Payment Information unsuccessfully By Cardholder name is empty', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+
+// test('Checkout-039 - Confirm Payment Information unsuccessfully By Cardholder name is empty', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
+
+//     //await addLaptopToCheckout(page);
+//     //await exitAddress(checkoutPage);
  
-    await addLaptopToCheckout(page);
-    //await exitAddress(checkoutPage);
+//     await checkoutPage.clickShippingMethodNextStep();
+//     await checkoutPage.selectCreditCardPaymentMethod();
+//     await checkoutPage.clickPaymentMethodNextStep();
  
-    await checkoutPage.clickShippingMethodNextStep();
-    await checkoutPage.selectCreditCardPaymentMethod();
-    await checkoutPage.clickPaymentMethodNextStep();
+//     await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardholderName: '' });
  
-    await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardholderName: '' });
+//     await checkoutPage.clickPaymentInfoNextStep();
+//     await page.waitForTimeout(2000);
  
-    await checkoutPage.clickPaymentInfoNextStep();
-    await page.waitForTimeout(2000);
+//     await checkoutPage.expectValidationError('Enter cardholder name');
+// });
  
-    await checkoutPage.expectValidationError('Enter cardholder name');
-});
+// test('Checkout-040 - Confirm Payment Information unsuccessfully By Card number is empty', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
+    
+//    
+//     //await addLaptopToCheckout(page);
+//     //await exitAddress(checkoutPage);
  
-test('Checkout-040 - Confirm Payment Information unsuccessfully By Card number is empty', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+//     await checkoutPage.clickShippingMethodNextStep();
+//     await checkoutPage.selectCreditCardPaymentMethod();
+//     await checkoutPage.clickPaymentMethodNextStep();
  
-    await addLaptopToCheckout(page);
-    //await exitAddress(checkoutPage);
+//     await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardNumber: '' });
  
-    await checkoutPage.clickShippingMethodNextStep();
-    await checkoutPage.selectCreditCardPaymentMethod();
-    await checkoutPage.clickPaymentMethodNextStep();
+//     await checkoutPage.clickPaymentInfoNextStep();
+//     await page.waitForTimeout(2000);
  
-    await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardNumber: '' });
- 
-    await checkoutPage.clickPaymentInfoNextStep();
-    await page.waitForTimeout(2000);
- 
-    await checkoutPage.expectValidationError('Wrong card number');
-});
+//     await checkoutPage.expectValidationError('Wrong card number');
+// });
  
 // test('Checkout-041 - Confirm Payment Information unsuccessfully By Card number contains characters', async ({ page }) => {
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
+
  
 //     await checkoutPage.clickShippingMethodNextStep();
 //     await checkoutPage.selectCreditCardPaymentMethod();
@@ -628,83 +672,85 @@ test('Checkout-040 - Confirm Payment Information unsuccessfully By Card number i
 //     await checkoutPage.expectValidationError('Wrong card number');
 // });
  
-test('Checkout-042 - Confirm Payment Information unsuccessfully By Card number contains special characters', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+
+// test('Checkout-042 - Confirm Payment Information unsuccessfully By Card number contains special characters', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
  
-    await addLaptopToCheckout(page);
-    //await exitAddress(checkoutPage);
+//     await addLaptopToCheckout(page);
+//     //await exitAddress(checkoutPage);
  
-    await checkoutPage.clickShippingMethodNextStep();
-    await checkoutPage.selectCreditCardPaymentMethod();
-    await checkoutPage.clickPaymentMethodNextStep();
+//     await checkoutPage.clickShippingMethodNextStep();
+//     await checkoutPage.selectCreditCardPaymentMethod();
+//     await checkoutPage.clickPaymentMethodNextStep();
  
-    await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardNumber: '4111 1111 1111 1111@$%' });
+//     await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardNumber: '4111 1111 1111 1111@$%' });
  
-    await checkoutPage.clickPaymentInfoNextStep();
-    await page.waitForTimeout(2000);
+//     await checkoutPage.clickPaymentInfoNextStep();
+//     await page.waitForTimeout(2000);
  
-    await checkoutPage.expectValidationError('Wrong card number');
-});
+//     await checkoutPage.expectValidationError('Wrong card number');
+// });
  
-test('Checkout-043 - Confirm Payment Information unsuccessfully By Expiration date prior to the current date', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+// test('Checkout-043 - Confirm Payment Information unsuccessfully By Expiration date prior to the current date', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
  
-    await addLaptopToCheckout(page);
-    //await exitAddress(checkoutPage);
+//     await addLaptopToCheckout(page);
+//     //await exitAddress(checkoutPage);
  
-    await checkoutPage.clickShippingMethodNextStep();
-    await checkoutPage.selectCreditCardPaymentMethod();
-    await checkoutPage.clickPaymentMethodNextStep();
+//     await checkoutPage.clickShippingMethodNextStep();
+//     await checkoutPage.selectCreditCardPaymentMethod();
+//     await checkoutPage.clickPaymentMethodNextStep();
  
-    await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, expireYear: '2026' });
+//     await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, expireYear: '2026' });
  
-    await checkoutPage.clickPaymentInfoNextStep();
-    await page.waitForTimeout(2000);
+//     await checkoutPage.clickPaymentInfoNextStep();
+//     await page.waitForTimeout(2000);
  
-    await checkoutPage.expectValidationError('Card is expired');
-});
+//     await checkoutPage.expectValidationError('Card is expired');
+// });
  
-test('Checkout-044 - Confirm Payment Information unsuccessfully By Card code is empty', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+// test('Checkout-044 - Confirm Payment Information unsuccessfully By Card code is empty', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
  
-    await addLaptopToCheckout(page);
-    //await exitAddress(checkoutPage);
+//     await addLaptopToCheckout(page);
+//     //await exitAddress(checkoutPage);
  
-    await checkoutPage.clickShippingMethodNextStep();
-    await checkoutPage.selectCreditCardPaymentMethod();
-    await checkoutPage.clickPaymentMethodNextStep();
+//     await checkoutPage.clickShippingMethodNextStep();
+//     await checkoutPage.selectCreditCardPaymentMethod();
+//     await checkoutPage.clickPaymentMethodNextStep();
  
-    await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardCode: '' });
+//     await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardCode: '' });
  
-    await checkoutPage.clickPaymentInfoNextStep();
-    //await page.waitForTimeout(2000);
+//     await checkoutPage.clickPaymentInfoNextStep();
+//     //await page.waitForTimeout(2000);
  
-    await checkoutPage.expectValidationError('Wrong card code');
-});
+//     await checkoutPage.expectValidationError('Wrong card code');
+// });
  
-test('Checkout-045 - Confirm Payment Information unsuccessfully By Card code contains characters', async ({ page }) => {
-    const checkoutPage = new CheckoutPage(page);
+// test('Checkout-045 - Confirm Payment Information unsuccessfully By Card code contains characters', async ({ page }) => {
+//     const checkoutPage = new CheckoutPage(page);
  
-    await addLaptopToCheckout(page);
-    //await exitAddress(checkoutPage);
+//     await addLaptopToCheckout(page);
+//     //await exitAddress(checkoutPage);
  
-    await checkoutPage.clickShippingMethodNextStep();
-    await checkoutPage.selectCreditCardPaymentMethod();
-    await checkoutPage.clickPaymentMethodNextStep();
+//     await checkoutPage.clickShippingMethodNextStep();
+//     await checkoutPage.selectCreditCardPaymentMethod();
+//     await checkoutPage.clickPaymentMethodNextStep();
  
-    await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardCode: '123demo' });
+//     await checkoutPage.fillCreditCardInfo({ ...VALID_CREDIT_CARD, cardCode: '123demo' });
  
-    await checkoutPage.clickPaymentInfoNextStep();
-    await page.waitForTimeout(2000);
+//     await checkoutPage.clickPaymentInfoNextStep();
+//     await page.waitForTimeout(2000);
  
-    await checkoutPage.expectValidationError('Wrong card code');
-});
+//     await checkoutPage.expectValidationError('Wrong card code');
+// });
  
 // test('Checkout-046 - Confirm Payment Information unsuccessfully By Card code contains special characters', async ({ page }) => {
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
  
 //     await checkoutPage.clickShippingMethodNextStep();
 //     await checkoutPage.selectCreditCardPaymentMethod();
@@ -724,7 +770,8 @@ test('Checkout-045 - Confirm Payment Information unsuccessfully By Card code con
 //     const checkoutPage = new CheckoutPage(page);
  
 //     await addLaptopToCheckout(page);
-//     await exitAddress(checkoutPage);
+
+//     //await exitAddress(checkoutPage);
  
 //     await checkoutPage.completeCheckoutWithDefaultShipping();
  

@@ -78,7 +78,7 @@ export class CheckoutPage extends BasePage {
     get editBillingAddressButton() { return this.page.locator("//button[@id='edit-billing-address-button']"); }
     get saveEditedBillingAddressButton() { return this.page.locator("(//button[@id='save-billing-address-button'])[1]"); }
     get deleteBillingAddressButton() { return this.page.locator("//button[@id='delete-billing-address-button']"); }
-    get billingAddressMethodStepButton(){return this.page.locator("//button[@onclick='if (!window.__cfRLUnblockHandlers) return false; Billing.save()']")}
+    get billingAddressMethodStepButton(){return this.page.locator('button.button-1.shipping-method-next-step-button'); }
 
     // Shipping method step
     get shippingMethodForm() { return this.page.locator("//form[@id='co-shipping-method-form']"); }
@@ -86,7 +86,7 @@ export class CheckoutPage extends BasePage {
  
     // Payment method step
     get creditCardPaymentLabel() { return this.page.locator("//input[@id='paymentmethod_1']"); }
-    get paymentMethodNextStepButton() { return this.page.locator("//button[@class='button-1 payment-method-next-step-button']"); }
+    get paymentMethodNextStepButton() { return this.page.locator('button[class="button-1 payment-method-next-step-button"]'); }
  
     // Payment info step
     get creditCardTypeSelect() { return this.page.locator(" //select[@id='CreditCardType']"); }
@@ -167,6 +167,7 @@ export class CheckoutPage extends BasePage {
     async submitNewBillingAddress(data: BillingAddressData = {}) {
         await this.fillBillingAddress(data);
         await this.clickSaveNewBillingAddress();
+        await expect(this.shippingMethodNextStepButton).toBeEnabled();
     }
  
     async expectAlertOnSave(saveAction: () => Promise<void>, expectedMessage: string) {
@@ -256,7 +257,7 @@ export class CheckoutPage extends BasePage {
             await this.page.waitForTimeout(1000);
             await this.expireMonthSelect.scrollIntoViewIfNeeded();
             await this.selectOption(this.expireMonthSelect, data.expireMonth, "Expire month");
-            await this.page.waitForTimeout(1000);
+            //await this.page.waitForTimeout(1000);
         }
         if (data.expireYear !== undefined) {
             await this.waitFor(this.expireYearSelect);
@@ -292,14 +293,18 @@ export class CheckoutPage extends BasePage {
     // ---------- Convenience end-to-end flows ----------
  
     /** Goes through shipping method + payment method(free choice) + payment info + confirm order using defaults. */
-    async completeCheckoutWithDefaultShipping() {
-        await this.clickBilillingMethodStep();
-        await this.clickShippingMethodNextStep();
-        await this.clickPaymentMethodNextStep();
-        await this.page.waitForTimeout(2000);
-        await this.clickPaymentInfoNextStep();
-        await this.clickConfirmOrderNextStep();
-    }
+    // async completeCheckoutWithDefaultShipping() {
+    //     await this.clickBilillingMethodStep();
+        
+    //     await this.clickShippingMethodNextStep();
+       
+    //     await this.page.waitForTimeout(1000);
+    //     await this.clickPaymentMethodNextStep();
+        
+    //     await this.clickPaymentInfoNextStep();
+        
+    //     await this.clickConfirmOrderNextStep();
+    // }
  
     /** Goes through shipping method + Credit Card payment + card info + confirm order. */
     async completeCheckoutWithCreditCard(cardData: CreditCardData = VALID_CREDIT_CARD) {
