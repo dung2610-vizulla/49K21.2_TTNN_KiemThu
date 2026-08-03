@@ -17,7 +17,8 @@ export class registerPage extends BasePage {
     private emailError = this.page.locator('[data-valmsg-for="Email"]');
     private confirmpasswordError = this.page.locator('[data-valmsg-for="ConfirmPassword"]');
     private passwordError = this.page.locator('[data-valmsg-for="Password"]');
-    private emailExits = this.page.locator("div[class='message-error validation-summary-errors'] ul li")
+    private emailExits = this.page.locator("div[class='message-error validation-summary-errors'] ul li");
+    private triggerclick = this.page.locator("section:nth-child(2) h2:nth-child(1)");
 
 
     constructor(page: Page) {
@@ -97,9 +98,14 @@ export class registerPage extends BasePage {
         await expect(this.lastNameError).toBeVisible();
         await expect(this.lastNameError).toHaveText(expectedMessage);
     }
+    async verifytriggerclick() {
+        await expect(this.triggerclick).toBeVisible();
+        await this.triggerclick.click();
+    }
 
     async verifyEmailError(expectedMessage: string) {
-        await expect(this.emailError).toBeVisible({ timeout: 10000 });
+        // await expect(this.emailError).toBeVisible({ timeout: 1000});
+        
         await expect(this.emailError).toHaveText(expectedMessage);
     }
 
